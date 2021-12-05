@@ -1,7 +1,3 @@
-package ProcessData;
-
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,55 +11,55 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 public class ProcessDataClass {
-	private String content="";//¶ÁÈëdataÄÚÈİ
-	private int id=0;//¹²¼Æ¶àÉÙ¸öºÃÓÑ
-	private ArrayList<String> datalist=new ArrayList<String>();//Êı¾İÁĞ±í
+	private String content="";//è¯»å…¥dataå†…å®¹
+	private int id=0;//å…±è®¡å¤šå°‘ä¸ªå¥½å‹
+	private ArrayList<String> datalist=new ArrayList<String>();//æ•°æ®åˆ—è¡¨
 	//
 	public static void main(String[]args) throws Exception {
 		ProcessDataClass f=new ProcessDataClass();
-		String fin="";//ÔÚ´Ë´¦ÊäÈëÊı¾İÎÄ¼şÂ·¾¶
-		String fo="";//ÔÚ´Ë´¦ÊäÈëÊä³öÎÄ¼şÂ·¾¶
-		f.getData(new File(fin));//ÊäÈëÊı¾İ
-		f.classifydata();//´¦ÀíÊı¾İ
-		f.writedataExcel(new FileOutputStream(fo));//Êä³öÊı¾İ
+		String fin="";//åœ¨æ­¤å¤„è¾“å…¥æ•°æ®æ–‡ä»¶è·¯å¾„
+		String fo="";//åœ¨æ­¤å¤„è¾“å…¥è¾“å‡ºæ–‡ä»¶è·¯å¾„
+		f.getData(new File(fin));//è¾“å…¥æ•°æ®
+		f.classifydata();//å¤„ç†æ•°æ®
+		f.writedataExcel(new FileOutputStream(fo));//è¾“å‡ºæ•°æ®
 	}
 	//
-	//¶ÁÈëdata
+	//è¯»å…¥data
 	public void getData(File fp) throws Exception {
 		BufferedReader in=new BufferedReader(new FileReader(fp));
 		String line;
 		while((line=in.readLine())!=null) {
 			content+=line;
 		}
-		System.out.println("Êı¾İ¶ÁÈëÍê±Ï");
+		System.out.println("æ•°æ®è¯»å…¥å®Œæ¯•");
 	}
-	//´¦Àídata
+	//å¤„ç†data
 	public void classifydata() throws Exception{
 		String test1[];
 		test1=content.split("\"uin\"");
 		int i=0;
 		for(String test:test1) {
-			String uid,name,remark;//´ú±íQQ£¬Ãû³Æ£¬ÒÔ¼°±¸×¢
+			String uid,name,remark;//ä»£è¡¨QQï¼Œåç§°ï¼Œä»¥åŠå¤‡æ³¨
 			if(test.contains("name")==true) {
 			uid=test.substring(test.indexOf(":")+1, test.indexOf(","));
 			name=test.substring(test.indexOf("name")+7, test.indexOf("remark")-4);
 			remark=test.substring(test.indexOf("remark")+9, test.indexOf("img")-4);
 			datalist.add(uid+"#"+name+"#"+remark);
-			//#ºÅÓÃÓÚ·Ö¸î£¬ÎªÊä³öÊı¾İ×ö×¼±¸
+			//#å·ç”¨äºåˆ†å‰²ï¼Œä¸ºè¾“å‡ºæ•°æ®åšå‡†å¤‡
 			i++;
 			}
 		};
-		System.out.println("Êı¾İ´¦ÀíÍê±Ï");
+		System.out.println("æ•°æ®å¤„ç†å®Œæ¯•");
 	}
-	//Êä³ödata
+	//è¾“å‡ºdata
 	public void writedataExcel(OutputStream os) throws Exception {
 		WritableWorkbook wb=Workbook.createWorkbook(os);
 		WritableSheet ws=wb.createSheet("data", 0);
-		Label t1=new Label(0,0,"QQºÅ");
+		Label t1=new Label(0,0,"QQå·");
 		ws.addCell(t1);
-		Label t2=new Label(1,0,"êÇ³Æ");
+		Label t2=new Label(1,0,"æ˜µç§°");
 		ws.addCell(t2);
-		Label t3=new Label(2,0,"±¸×¢");
+		Label t3=new Label(2,0,"å¤‡æ³¨");
 		ws.addCell(t3);
 		int i=0,j=1;
 		for(String test:datalist) {
@@ -78,7 +74,7 @@ public class ProcessDataClass {
 		wb.write();
 		wb.close();
 		os.close();
-		System.out.println("Êı¾İÊä³öÍê±Ï");
-		System.out.println("¹²¼Æ"+id+"¸öºÃÓÑ");
+		System.out.println("æ•°æ®è¾“å‡ºå®Œæ¯•");
+		System.out.println("å…±è®¡"+id+"ä¸ªå¥½å‹");
 	}
 }
