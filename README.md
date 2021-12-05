@@ -1,7 +1,7 @@
 # -好友QQ号、昵称、备注输出到文件-
 通过处理TXT文件，用excel输出QQ好友数据
 
-首先，要从QQ空间找到显示好友信息的HTML，将HTML源码手动复制到.txt文件中，并更改编码为ANSI（具体查看.doc文档）
+首先，要从QQ空间找到显示好友信息的HTML，将HTML源码手动复制到.txt文件中，并更改编码为ANSI（具体查看数据获取.doc文档）
 
 其次，调用ProcessDataClass类用来处理数据，并输出数据到excel文件中
 
